@@ -6,8 +6,8 @@ summary(MULTIYR_APR_RATE_1000_OFFICIAL)
 summary(MULTIYR_APR_RATE_1000_CI)
 summary(SCL_DIV_14)
 revenuesportfilter$APR_Scaled <- case_when(MULTIYR_APR_RATE_1000_CI < 980 ~ 1,
-                                           (MULTIYR_APR_RATE_1000_CI > 980 & MULTIYR_APR_RATE_1000_CI < 996) ~ 2,
-                                           MULTIYR_APR_RATE_1000_CI > 996 ~3)
+                                           (MULTIYR_APR_RATE_1000_CI > 980 & MULTIYR_APR_RATE_1000_CI < 994) ~ 2,
+                                           MULTIYR_APR_RATE_1000_CI > 993 ~3)
 revenuesportfilter <- revenuesportfilter [ which(SCL_DIV_14 == 1 & SPORT_CODE > 0 & SPORT_CODE < 5),]
 detach(crosstab_data)
 attach(revenuesportfilter)
