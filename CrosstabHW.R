@@ -1,0 +1,26 @@
+library(haven)
+crosstab_data <- read_sav("26801-0001-Data.sav")
+View(crosstab_data)
+attach(crosstab_data)
+summary(MULTIYR_APR_RATE_1000_OFFICIAL)
+summary(MULTIYR_APR_RATE_1000_CI)
+summary(SCL_DIV_14)
+revenuesportfilter$APR_Scaled <- case_when(MULTIYR_APR_RATE_1000_CI < 980 ~ 1,
+                                           (MULTIYR_APR_RATE_1000_CI > 980 & MULTIYR_APR_RATE_1000_CI < 996) ~ 2,
+                                           MULTIYR_APR_RATE_1000_CI > 996 ~3)
+revenuesportfilter <- revenuesportfilter [ which(SCL_DIV_14 == 1 & SPORT_CODE > 0 & SPORT_CODE < 5),]
+detach(crosstab_data)
+attach(revenuesportfilter)
+View(revenuesportfilter)
+summary(MULTIYR_APR_RATE_1000_CI)
+summary(APR_Scaled)
+crosstab <- table(SPORT_CODE, APR_Scaled)
+crosstab
+margin.table(crosstab, 1)
+margin.table(crosstab, 2)
+summary(crosstab)
+install.packages("vcd")
+library(vcd)
+assocstats(crosstab)
+prop.table(crosstab, 1)
+prop.table(crosstab, 2)
